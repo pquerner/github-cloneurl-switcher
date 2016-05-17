@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name       Github CloneURL Switcher
-// @version    0.3
+// @version    0.4
 // @require http://code.jquery.com/jquery-latest.js
 // @description  Switches clone URL so it can be used with git client "SourceTree" by Atlassian. ONLY TESTED ON WINDOWS 7 and 8.1
 // @match      *://*.github.com/*
-// @copyright  2015, Pascal Querner
+// @copyright  2016, Pascal Querner
 // ==/UserScript==
 
 $( document ).ready(function() {
     var sourcetreeAdress = 'sourcetree://cloneRepo/',
-        linkSelector = '.btn.btn-sm.tooltipped.tooltipped-s.tooltipped-multiline',
+        linkSelector = '.mt-2',
         regexPatternRepo = "(.*):\/{2}(.*)",
         protocol = window.location.protocol,
         jqLinkObj;
@@ -21,7 +21,7 @@ $( document ).ready(function() {
             //TODO: Only call once every 5 seconds and abort after a while so the browser doesnt blow up?!
             main();
         } else {
-            jqLinkObj = $(linkSelector)[0];
+            jqLinkObj = $(linkSelector).children().first();
             var cloneLink = jqLinkObj;
             var repLink = fetchRepoLink(cloneLink);
             var newLink = sourcetreeAdress + protocol + "//" + repLink;
